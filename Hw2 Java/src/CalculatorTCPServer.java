@@ -25,12 +25,14 @@ public class CalculatorTCPServer {
                 if (!HandleExceptions(arrToCheck, out, userMsg)) {
                     continue;
                 }
-                out.println(userMsg + " = " +Calculate(arrToCheck));
+                out.println(userMsg + " = " + Calculate(arrToCheck));
 
             }
+            
+            clientSocket.close();
 
         } catch (IOException e) {
-            // TODO: handle exception
+            e.printStackTrace();
 
         }
 

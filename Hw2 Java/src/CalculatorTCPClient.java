@@ -17,15 +17,17 @@ public class CalculatorTCPClient {
                 System.out.print("Enter expression (num op num) or exit to exit: ");
                 input = stdIn.readLine();
 
-                if(input.toLowerCase().equals("exit")) break;
+                if (input.toLowerCase().equals("exit"))
+                    break;
 
                 out.println(input);
 
                 System.out.println(in.readLine());
 
             }
+            serverSocket.close();
         } catch (IOException e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 }
