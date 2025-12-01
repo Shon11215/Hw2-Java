@@ -15,9 +15,8 @@ public class QuoteUDPClient {
             byte[] receiveBuffer = new byte[1024];
             byte[] sendBuffer;
 
-            System.out.println("Enter GET to the server to get a random sentence or exit to leave :)");
+            System.out.println("Enter GET to the server to get a random sentence or exit to leave: ");
             while (true) {
-                System.out.print("You: ");
 
                 String clientMessage = scanner.nextLine();
 
@@ -35,7 +34,7 @@ public class QuoteUDPClient {
                 clientSocket.receive(receivePacket);
 
                 String serverResponse = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                System.out.println("The Voices: " + serverResponse);
+                System.out.println("Quote received: " + serverResponse);
 
             }
             clientSocket.close();

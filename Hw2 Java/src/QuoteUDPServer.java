@@ -36,14 +36,16 @@ public class QuoteUDPServer {
                 System.out.println(clientMessage);
 
                 if (clientMessage.toLowerCase().equals("get")) {
-
                     sendBuffer = quotes[random.nextInt(quotes.length)].getBytes();
+                    SendPacket(serverSocket, sendBuffer, receivedPacket);
+                } else if (isInvalidExpression(clientMessage)) {
+                    String error = "Invalid command. Use 'get' or 'exit'.";
+                    sendBuffer = error.getBytes();
                     SendPacket(serverSocket, sendBuffer, receivedPacket);
                 } else if (clientMessage.toLowerCase().equals("exit")) {
                     System.out.println("Clinet finished");
                     break;
                 }
-
             }
             serverSocket.close();
         } catch (IOException e) {
@@ -61,4 +63,10 @@ public class QuoteUDPServer {
         serverSocket.send(packet);
     }
 
+    private static boolean isInvalidExpression(String clientMessage) {
+        if (!clientMessage.toLowerCase().equals("get") && !clientMessage.toLowerCase().equals("exit")) {
+            return true;
+        }
+        return false;
+    }
 }
