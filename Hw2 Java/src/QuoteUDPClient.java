@@ -34,7 +34,7 @@ public class QuoteUDPClient {
                 clientSocket.receive(receivePacket);
 
                 String serverResponse = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                System.out.println("Quote received: " + serverResponse);
+                System.out.println(serverResponse);
 
             }
             clientSocket.close();

@@ -2,8 +2,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class QuoteUDPServer {
@@ -36,15 +34,16 @@ public class QuoteUDPServer {
                 System.out.println(clientMessage);
 
                 if (clientMessage.toLowerCase().equals("get")) {
-                    sendBuffer = quotes[random.nextInt(quotes.length)].getBytes();
-                    SendPacket(serverSocket, sendBuffer, receivedPacket);
-                } else if (isInvalidExpression(clientMessage)) {
-                    String error = "Invalid command. Use 'get' or 'exit'.";
-                    sendBuffer = error.getBytes();
+                    sendBuffer = ("Quote received: " +quotes[random.nextInt(quotes.length)]).getBytes();
                     SendPacket(serverSocket, sendBuffer, receivedPacket);
                 } else if (clientMessage.toLowerCase().equals("exit")) {
                     System.out.println("Clinet finished");
                     break;
+                }
+                 else{
+                    String error = "Invalid command. Use 'get' or 'exit'.";
+                    sendBuffer = error.getBytes();
+                    SendPacket(serverSocket, sendBuffer, receivedPacket);
                 }
             }
             serverSocket.close();
@@ -61,12 +60,5 @@ public class QuoteUDPServer {
 
         DatagramPacket packet = new DatagramPacket(sendBuffer, sendBuffer.length, clientAddress, clientPort);
         serverSocket.send(packet);
-    }
-
-    private static boolean isInvalidExpression(String clientMessage) {
-        if (!clientMessage.toLowerCase().equals("get") && !clientMessage.toLowerCase().equals("exit")) {
-            return true;
-        }
-        return false;
     }
 }
